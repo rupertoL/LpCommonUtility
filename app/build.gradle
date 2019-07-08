@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+
+def cfg = rootProject.ext.configuration // 配置
+
+android {
+
+    compileSdkVersion cfg.compileVersion
+    buildToolsVersion cfg.buildToolsVersion
+
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
+    defaultConfig {
+        applicationId cfg.package
+        minSdkVersion cfg.minSdk
+        targetSdkVersion cfg.targetSdk
+        versionCode cfg.version_code
+        versionName cfg.version_name
+
+
+        multiDexEnabled true
+
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi-v7a' //, 'arm64-v8a' //, 'x86'
+        }
+
+
+    }
+
+
+    buildTypes {
+        debug {
+            zipAlignEnabled true //ZipAlign优化
+
+        }
+
+        release {
+            minifyEnabled false
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false  //禁止使用lint代码检查
+    }
+
+    dexOptions {
+        //incremental true
+        javaMaxHeapSize "4g"
+        //preDexLibraries = false
+
+        //执行DX开启的线程数，适当的线程数量可以提高编译速度
+        threadCount 3
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs' //aar的引入方式
+        }
+    }
+
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    api project(':library')
+    implementation 'com.android.support:support-v4:28.0.0'
+}
