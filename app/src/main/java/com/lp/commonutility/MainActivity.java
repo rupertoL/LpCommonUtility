@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         webView.setLayoutParams(params);
         fr_root.addView(webView);
 
-        webView.loadUrl("http://cyydh5.shoppingyizhan.com/privateRoom/privateRoom?token=AT-642-cq6Ivc3u75xkfrOHpW47qRsacN5vTvIOCyE");
+        webView.loadUrl("http://cyydh5.shoppingyizhan.com/privateRoom/privateRoom?token=AT-1046-3dQBGbB41a6pZUBjqzwm0C1c9CUzisT5yVL");
         startRequestPermission();
     }
 

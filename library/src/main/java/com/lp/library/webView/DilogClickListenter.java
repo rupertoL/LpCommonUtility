@@ -8,7 +8,7 @@ import android.content.DialogInterface;
  * description:
  */
 public interface DilogClickListenter {
-    void cancel();
+    void cancel(DialogInterface dialog);
 
     void affirm(DialogInterface dialogInterface);
 }

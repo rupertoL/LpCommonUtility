@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.lp.library.R;
+import com.lp.library.file.FileUtls;
 
 /**
  * @author Loren
@@ -70,8 +71,8 @@ public class WebViewConfig {
                                     R.drawable.ic_launcher, "取消", "保存",
                                     new DilogClickListenter() {
                                         @Override
-                                        public void cancel() {
-
+                                        public void cancel(DialogInterface dialogInterface) {
+                                            dialogInterface.dismiss();
                                         }
 
                                         @Override
@@ -80,8 +81,10 @@ public class WebViewConfig {
                                             if (builder.webViewSaveImageListenter != null) {
                                                 builder.webViewSaveImageListenter.SaveImage(picUrl);
                                             } else {
+                                                FileUtls.newInstance(builder.mContext).donwloadImg(builder.mContext,picUrl);
                                                 Toast.makeText(builder.mContext, "请实现保存监听方法", Toast.LENGTH_SHORT).show();
                                             }
+                                            dialogInterface.dismiss();
                                         }
                                     }, true);
                             return true;

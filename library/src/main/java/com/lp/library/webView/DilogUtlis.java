@@ -22,21 +22,22 @@ public class DilogUtlis {
         normalMoreButtonDialog.setMessage(TextUtils.isEmpty(message) ? "确认继续操作吗" : message);
 
         //设置按钮
-        normalMoreButtonDialog.setPositiveButton(affirm
+        normalMoreButtonDialog.setPositiveButton(cancel
                 , new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dilogClickListenter.cancel();
-                        dialog.dismiss();
+                        dilogClickListenter.cancel(dialog);
+                        if (isTimelyDimiss) {
+                            dialog.dismiss();
+                        }
                     }
                 });
-        normalMoreButtonDialog.setNegativeButton(cancel
+        normalMoreButtonDialog.setNegativeButton(affirm
                 , new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dilogClickListenter.affirm(dialog);
                         if (isTimelyDimiss) {
-
                             dialog.dismiss();
                         }
                     }
