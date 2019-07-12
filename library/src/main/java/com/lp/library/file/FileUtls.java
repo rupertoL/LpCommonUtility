@@ -32,7 +32,7 @@ public class FileUtls {
     private Bitmap mBitmap;
     private String storagePath;
     private File PARENT_PATH = Environment.getExternalStorageDirectory();
-    private String DST_PATH = "test";
+    private static String DST_PATH ;
 
     private static Context context;
 
@@ -47,6 +47,7 @@ public class FileUtls {
 
     public static FileUtls newInstance(Context context) {
         Holder.fileUtls.context = context;
+        DST_PATH=  context.getPackageName();
         return Holder.fileUtls;
     }
 
@@ -78,7 +79,7 @@ public class FileUtls {
                         mBitmap = BitmapFactory.decodeStream(inputStream);
                         inputStream.close();
                     }
-                    saveImageToGallery(Holder.fileUtls.context,90, mBitmap);
+                    saveImageToGallery(Holder.fileUtls.context, 90, mBitmap);
                     messageHandler.sendEmptyMessage(1);
                 } catch (IOException e) {
                     messageHandler.sendEmptyMessage(2);
@@ -95,7 +96,7 @@ public class FileUtls {
             public void handleMessage(Message msg) {
                 mSaveDialog.dismiss();
 
-                String savemessage = msg.what==1?String.format("图片保存成功，保存路径为【",initPath(),"]"):"图片保存失败";
+                String savemessage = msg.what == 1 ? String.format("图片保存成功，保存路径为【", initPath(), "]") : "图片保存失败";
                 Toast.makeText(context, savemessage, Toast.LENGTH_SHORT).show();
             }
         };
@@ -142,10 +143,26 @@ public class FileUtls {
     /**
      * 初始化保存路径
      */
-    public String initPath() {
+    public String initPath(String dstPath) {
 
         if ("".equals(storagePath)) {
-            storagePath = PARENT_PATH.getAbsolutePath() + "/" + DST_PATH;
+            storagePath = String.format(PARENT_PATH.getAbsolutePath(), "/", TextUtils.isEmpty(dstPath) ? DST_PATH : dstPath);
+            File f = new File(storagePath);
+            if (!f.exists()) {
+                f.mkdir();
+            }
+        }
+        return storagePath;
+    }
+
+    /**
+     * 初始化保存路径
+     */
+    public String initPath() {
+
+        if (TextUtils.isEmpty(storagePath)) {
+            storagePath = PARENT_PATH.getAbsolutePath()+ "/"+ DST_PATH;
+
             File f = new File(storagePath);
             if (!f.exists()) {
                 f.mkdir();
