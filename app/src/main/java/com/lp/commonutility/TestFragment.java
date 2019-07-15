@@ -41,7 +41,7 @@ public class TestFragment extends Fragment {
 
         FrameLayout fl_root = mRootView.findViewById(R.id.fl_web_root);
 
-        mDefaultWebChromeClient = new DefaultWebChromeClient(this);
+        mDefaultWebChromeClient = new DefaultWebChromeClient(this,1);
         WebView webView = WebViewConfig.with(getContext(), null)
                 .isOpenBasicFunction()
                 .isDelayLoadingIamge(true)

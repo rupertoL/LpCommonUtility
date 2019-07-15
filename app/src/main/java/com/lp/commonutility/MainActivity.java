@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mDefaultWebChromeClient = new DefaultWebChromeClient(this);
+        mDefaultWebChromeClient = new DefaultWebChromeClient(this,1);
         WebView webView = WebViewConfig.with(this, null)
                 .isOpenBasicFunction()
                 .isDelayLoadingIamge(true)

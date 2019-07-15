@@ -40,28 +40,27 @@ public class DefaultWebChromeClient extends WebChromeClient {
     private Uri imageUri;
     File file;
 
-    public DefaultWebChromeClient(Activity activity, ValueCallback<Uri> uploadMessage, android.webkit.ValueCallback<Uri[]> uploadCallbackAboveL, int resultCode, Uri imageUri, File file) {
-
+    public DefaultWebChromeClient(Activity activity, int requestCode, ValueCallback<Uri> uploadMessage, android.webkit.ValueCallback<Uri[]> uploadCallbackAboveL,  Uri imageUri, File file) {
         this.mUploadCallbackAboveL = uploadCallbackAboveL;
         this.mUploadMessage = uploadMessage;
         this.mActivityReference = new WeakReference<>(activity);
-        this.FILECHOOSER_RESULTCODE = resultCode;
+        this.FILECHOOSER_RESULTCODE = requestCode;
         this.imageUri = imageUri;
         this.file = file;
 
     }
 
-    public DefaultWebChromeClient(Fragment fragment, ValueCallback<Uri> uploadMessage, android.webkit.ValueCallback<Uri[]> uploadCallbackAboveL, int resultCode, Uri imageUri, File file) {
-
+    public DefaultWebChromeClient(Fragment fragment, int requestCode, ValueCallback<Uri> uploadMessage, android.webkit.ValueCallback<Uri[]> uploadCallbackAboveL, Uri imageUri, File file) {
+        this.FILECHOOSER_RESULTCODE = requestCode;
         this.mUploadCallbackAboveL = uploadCallbackAboveL;
         this.mUploadMessage = uploadMessage;
         this.mFragmentReference = new WeakReference<>(fragment);
-        this.FILECHOOSER_RESULTCODE = resultCode;
         this.imageUri = imageUri;
         this.file = file;
     }
 
-    public DefaultWebChromeClient(Activity activity) {
+    public DefaultWebChromeClient(Activity activity, int requestCode) {
+        this.FILECHOOSER_RESULTCODE = requestCode;
         this.mActivityReference = new WeakReference<>(activity);
 
 
@@ -71,7 +70,8 @@ public class DefaultWebChromeClient extends WebChromeClient {
         imageUri = Uri.fromFile(file);
     }
 
-    public DefaultWebChromeClient(Fragment fragment) {
+    public DefaultWebChromeClient(Fragment fragment, int requestCode) {
+        this.FILECHOOSER_RESULTCODE = requestCode;
         this.mFragmentReference = new WeakReference<>(fragment);
         String filePath = FileUtls.newInstance(getContext()).initPath();
         String fileName = "IMG_" + DateFormat.format("yyyyMMdd_hhmmss", Calendar.getInstance(Locale.CHINA)) + ".jpg";
