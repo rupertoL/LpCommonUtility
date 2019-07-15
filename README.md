@@ -4,7 +4,7 @@
 
 >>1.配置书写如下 ：
      
-···
+'''
 WebView webView = WebViewConfig.with(this, null)
                 .isOpenBasicFunction()
                 .isDelayLoadingIamge(true)
@@ -14,5 +14,5 @@ WebView webView = WebViewConfig.with(this, null)
                 .isSupportUploadingFile(true)
                 .setWebChromeClient(mDefaultWebChromeClient)
                 .build();
-···
+'''
                 
