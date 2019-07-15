@@ -4,6 +4,8 @@
 
 1.配置 ：
 
+ 、、、java
+ 
   WebView webView = WebViewConfig.with(this, null)
                 .isOpenBasicFunction()
                 .isDelayLoadingIamge(true)
@@ -13,5 +15,6 @@
                 .isSupportUploadingFile(true)
                 .setWebChromeClient(mDefaultWebChromeClient)
                 .build();
+ 、、、
                 
                 
