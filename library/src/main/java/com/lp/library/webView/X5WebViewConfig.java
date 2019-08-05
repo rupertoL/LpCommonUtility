@@ -6,50 +6,53 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.lp.library.R;
 import com.lp.library.file.FileUtls;
+import com.tencent.smtt.sdk.WebView;
 
 /**
  * @author Loren
  * Create_Time: 2019/7/5 14:49
  * description:
  */
-public class WebViewConfig {
+public class X5WebViewConfig {
 
     private WebView mWebView;
 
     @SuppressLint("JavascriptInterface")
-    private WebViewConfig(final Builder builder) {
-        if(builder.webView==null){
+    private X5WebViewConfig(final Builder builder) {
+        if (builder.webView == null) {
             mWebView = new WebView(builder.mContext);
-        }else{
+        } else {
             mWebView = builder.webView;
         }
 
         if (builder.isClearWebViewTitle) {
-            mWebView = WebViewSettingUtlis.getInstance().clearWebViewTitle(mWebView);
+            mWebView = X5WebViewSettingUtlis.getInstance().clearWebViewTitle(mWebView);
         }
         if (builder.isDelayLoadingIamge) {
-            mWebView = WebViewSettingUtlis.getInstance().setImagesLoading(mWebView);
+            mWebView = X5WebViewSettingUtlis.getInstance().setImagesLoading(mWebView);
         }
 
 
         if (builder.isPermitMixedPrint) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+                //两者都可以
+                mWebView.getSettings().setMixedContentMode(mWebView.getSettings().getMixedContentMode());
             }
         }
         if (builder.isOpenBasicFunction) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                WebViewSettingUtlis.getInstance().setBaseSeting(mWebView);
+                X5WebViewSettingUtlis.getInstance().setBaseSeting(mWebView);
             }
         }
         if (builder.baseJavascriptInterface != null) {
             mWebView.addJavascriptInterface(builder.baseJavascriptInterface, builder.baseJavascriptInterface.getAliasName());
+        }
+        if (builder.textZoom != -1) {
+            mWebView.getSettings().setTextZoom(builder.textZoom);
         }
 
 
@@ -81,7 +84,7 @@ public class WebViewConfig {
                                             if (builder.webViewSaveImageListenter != null) {
                                                 builder.webViewSaveImageListenter.SaveImage(picUrl);
                                             } else {
-                                                FileUtls.newInstance(builder.mContext).donwloadImg(builder.mContext,picUrl);
+                                                FileUtls.newInstance(builder.mContext).donwloadImg(builder.mContext, picUrl);
                                                 Toast.makeText(builder.mContext, "请实现保存监听方法", Toast.LENGTH_SHORT).show();
                                             }
                                             dialogInterface.dismiss();
@@ -115,8 +118,8 @@ public class WebViewConfig {
         return mWebView;
     }
 
-    public static WebViewConfig.Builder with(Context context, WebView webView) {
-        return new WebViewConfig.Builder(context, webView);
+    public static X5WebViewConfig.Builder with(Context context, WebView webView) {
+        return new X5WebViewConfig.Builder(context, webView);
     }
 
     public static class Builder {
@@ -130,10 +133,11 @@ public class WebViewConfig {
         private boolean isAllowSaveIamge;
         private boolean isAllowCopyText;
         private boolean isSupportUploadingFile;
+        private int textZoom = -1;
         private WebView webView;
         private View.OnLongClickListener onLongClickListener;
-        private WebViewSaveImageListenter webViewSaveImageListenter;
-        private DefaultWebChromeClient defaultWebChromeClient;
+        private X5WebViewSaveImageListenter webViewSaveImageListenter;
+        private X5DefaultWebChromeClient defaultWebChromeClient;
         private BaseJavascriptInterface baseJavascriptInterface;
 
         private Builder(Context context, WebView webView) {
@@ -221,7 +225,7 @@ public class WebViewConfig {
         /**
          * @return
          */
-        public Builder setWebChromeClient(DefaultWebChromeClient defaultWebChromeClient) {
+        public Builder setWebChromeClient(X5DefaultWebChromeClient defaultWebChromeClient) {
             this.defaultWebChromeClient = defaultWebChromeClient;
             return this;
         }
@@ -241,11 +245,20 @@ public class WebViewConfig {
          * @param webViewSaveImageListenter
          * @return
          */
-        public Builder setWebViewSaveImageListenter(WebViewSaveImageListenter webViewSaveImageListenter) {
+        public Builder setWebViewSaveImageListenter(X5WebViewSaveImageListenter webViewSaveImageListenter) {
             this.webViewSaveImageListenter = webViewSaveImageListenter;
             return this;
         }
 
+        /**
+         * 下载图片保存
+         *
+         * @return
+         */
+        public Builder setTextZoom(int textZoom) {
+            this.textZoom = textZoom;
+            return this;
+        }
 
         /**
          * 与js交互的本地类
@@ -264,7 +277,7 @@ public class WebViewConfig {
             }
 
 
-            return new WebViewConfig(this).getWebView();
+            return new X5WebViewConfig(this).getWebView();
         }
 
 

@@ -16,12 +16,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.webkit.ValueCallback;
-import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.lp.library.webView.DefaultWebChromeClient;
-import com.lp.library.webView.WebViewConfig;
+import com.lp.library.webView.X5DefaultWebChromeClient;
+import com.lp.library.webView.X5WebViewConfig;
+import com.tencent.smtt.sdk.WebView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private android.webkit.ValueCallback<Uri[]> mUploadCallbackAboveL;
 
     private int FILECHOOSER_RESULTCODE = 0;
-    private DefaultWebChromeClient mDefaultWebChromeClient;
+    private X5DefaultWebChromeClient mDefaultWebChromeClient;
     private AlertDialog mDialog;
 
     @Override
@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mDefaultWebChromeClient = new DefaultWebChromeClient(this,1);
-        WebView webView = WebViewConfig.with(this, null)
+        mDefaultWebChromeClient = new X5DefaultWebChromeClient(this,1);
+        WebView webView = X5WebViewConfig.with(this, null)
                 .isOpenBasicFunction()
                 .isDelayLoadingIamge(true)
                 .isPermitMixedPrint(true)

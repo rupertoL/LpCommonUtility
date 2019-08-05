@@ -5,6 +5,6 @@ package com.lp.library.webView;
  * Create_Time: 2019/7/5 16:37
  * description: 保存图片回调
  */
-public interface WebViewSaveImageListenter {
+public interface X5WebViewSaveImageListenter {
     void SaveImage(String imgUrl);
 }

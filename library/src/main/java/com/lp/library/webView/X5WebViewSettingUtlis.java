@@ -1,22 +1,44 @@
 package com.lp.library.webView;
 
+import android.content.Context;
 import android.os.Build;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
+import android.util.Log;
+
+import com.tencent.smtt.sdk.QbSdk;
+import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebView;
 
 /**
  * @author Loren
  * Create_Time: 2019/7/5 15:00
  * description:
  */
-public class WebViewSettingUtlis {
-    private static final WebViewSettingUtlis ourInstance = new WebViewSettingUtlis();
+public class X5WebViewSettingUtlis {
+    private static final X5WebViewSettingUtlis ourInstance = new X5WebViewSettingUtlis();
 
-    public static WebViewSettingUtlis getInstance() {
+    public static X5WebViewSettingUtlis getInstance() {
         return ourInstance;
     }
 
-    private WebViewSettingUtlis() {
+    private X5WebViewSettingUtlis() {
+    }
+
+
+    public void initX5(Context context) {
+        QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
+
+            @Override
+            public void onViewInitFinished(boolean arg0) {
+                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
+                 Log.d("x5Webview"," onViewInitFinished is " + arg0);
+            }
+
+            @Override
+            public void onCoreInitFinished() {
+            }
+        };
+        //x5内核初始化接口
+        QbSdk.initX5Environment(context, cb);
     }
 
 
@@ -103,8 +125,6 @@ public class WebViewSettingUtlis {
 
         return webView;
     }
-
-
 
 
 }

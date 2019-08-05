@@ -12,11 +12,11 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
 
 import com.lp.library.file.FileUtls;
+import com.tencent.smtt.sdk.ValueCallback;
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebView;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -28,7 +28,7 @@ import java.util.Locale;
  * Create_Time: 2019/7/5 16:43
  * description: 实现WebChromeClient类的封装
  */
-public class DefaultWebChromeClient extends WebChromeClient {
+public class X5DefaultWebChromeClient extends WebChromeClient {
 
 
     private ValueCallback<Uri> mUploadMessage;
@@ -40,7 +40,7 @@ public class DefaultWebChromeClient extends WebChromeClient {
     private Uri imageUri;
     File file;
 
-    public DefaultWebChromeClient(Activity activity, int requestCode, ValueCallback<Uri> uploadMessage, android.webkit.ValueCallback<Uri[]> uploadCallbackAboveL,  Uri imageUri, File file) {
+    public X5DefaultWebChromeClient(Activity activity, int requestCode, ValueCallback<Uri> uploadMessage, android.webkit.ValueCallback<Uri[]> uploadCallbackAboveL, Uri imageUri, File file) {
         this.mUploadCallbackAboveL = uploadCallbackAboveL;
         this.mUploadMessage = uploadMessage;
         this.mActivityReference = new WeakReference<>(activity);
@@ -50,7 +50,7 @@ public class DefaultWebChromeClient extends WebChromeClient {
 
     }
 
-    public DefaultWebChromeClient(Fragment fragment, int requestCode, ValueCallback<Uri> uploadMessage, android.webkit.ValueCallback<Uri[]> uploadCallbackAboveL, Uri imageUri, File file) {
+    public X5DefaultWebChromeClient(Fragment fragment, int requestCode, ValueCallback<Uri> uploadMessage, android.webkit.ValueCallback<Uri[]> uploadCallbackAboveL, Uri imageUri, File file) {
         this.FILECHOOSER_RESULTCODE = requestCode;
         this.mUploadCallbackAboveL = uploadCallbackAboveL;
         this.mUploadMessage = uploadMessage;
@@ -59,7 +59,7 @@ public class DefaultWebChromeClient extends WebChromeClient {
         this.file = file;
     }
 
-    public DefaultWebChromeClient(Activity activity, int requestCode) {
+    public X5DefaultWebChromeClient(Activity activity, int requestCode) {
         this.FILECHOOSER_RESULTCODE = requestCode;
         this.mActivityReference = new WeakReference<>(activity);
 
@@ -70,7 +70,7 @@ public class DefaultWebChromeClient extends WebChromeClient {
         imageUri = Uri.fromFile(file);
     }
 
-    public DefaultWebChromeClient(Fragment fragment, int requestCode) {
+    public X5DefaultWebChromeClient(Fragment fragment, int requestCode) {
         this.FILECHOOSER_RESULTCODE = requestCode;
         this.mFragmentReference = new WeakReference<>(fragment);
         String filePath = FileUtls.newInstance(getContext()).initPath();

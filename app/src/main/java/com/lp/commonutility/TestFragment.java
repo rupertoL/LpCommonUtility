@@ -8,12 +8,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.lp.library.webView.DefaultWebChromeClient;
-import com.lp.library.webView.WebViewConfig;
+import com.lp.library.webView.X5DefaultWebChromeClient;
+import com.lp.library.webView.X5WebViewConfig;
+import com.tencent.smtt.sdk.WebView;
 
 /**
  * @author Loren
@@ -23,7 +23,7 @@ import com.lp.library.webView.WebViewConfig;
 public class TestFragment extends Fragment {
 
     private View mRootView;
-    private DefaultWebChromeClient mDefaultWebChromeClient;
+    private X5DefaultWebChromeClient mDefaultWebChromeClient;
 
     @Nullable
     @Override
@@ -41,8 +41,8 @@ public class TestFragment extends Fragment {
 
         FrameLayout fl_root = mRootView.findViewById(R.id.fl_web_root);
 
-        mDefaultWebChromeClient = new DefaultWebChromeClient(this,1);
-        WebView webView = WebViewConfig.with(getContext(), null)
+        mDefaultWebChromeClient = new X5DefaultWebChromeClient(this,1);
+        WebView webView = X5WebViewConfig.with(getContext(), null)
                 .isOpenBasicFunction()
                 .isDelayLoadingIamge(true)
                 .isPermitMixedPrint(true)
