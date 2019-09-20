@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FlexibleBanner">
+        <attr name="auto_switch" format="boolean" />
+        <attr name="alone_auto_switch" format="boolean" />
+        <attr name="distance_time" format="integer" />
+        <attr name="aspect_ratio" format="float" />
+    </declare-styleable>
+</resources>
